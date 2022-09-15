@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import "go_donationid/config"
 
 func main() {
-	fmt.Println("oke booos")
+
+	config.ConnectDB()
+
 }
