@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"go_donationid/user"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -12,12 +13,12 @@ import (
 func ConnectDB() *gorm.DB {
 	godotenv.Load()
 
-	host := os.Getenv("DB_HOST")
-	user := os.Getenv("DB_USER")
-	password := os.Getenv("DB_PASSWORD")
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", user, password, host, dbName)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("connection to database failed")
@@ -25,6 +26,7 @@ func ConnectDB() *gorm.DB {
 	fmt.Println("connection to database success")
 
 	// auto migrate table
+	db.AutoMigrate(user.User{})
 
 	return db
 }
