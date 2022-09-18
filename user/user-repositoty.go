@@ -4,10 +4,10 @@ import "gorm.io/gorm"
 
 type UserRepository interface {
 	FindAll() ([]User, error)
-	FindById(ID uint64) (User, error)
-	FindByEmail(email string) (User, error)
-	Save(user User) (User, error)
-	Delete(ID uint64) (User, error)
+	CreateNewUser(user User) (User, error)
+	// FindById(ID uint64) (User, error)
+	// FindByEmail(email string) (User, error)
+	// Delete(ID uint64) (User, error)
 }
 
 type userRepository struct {
@@ -18,7 +18,7 @@ func NewUserRepository(db *gorm.DB) *userRepository {
 	return &userRepository{db}
 }
 
-func (r *userRepository) Save(user User) (User, error) {
+func (r *userRepository) CreateNewUser(user User) (User, error) {
 	err := r.db.Create(&user).Error
 	return user, err
 }

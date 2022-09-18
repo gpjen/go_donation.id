@@ -10,7 +10,7 @@ type User struct {
 	PasswordHash string    `gorm:"type:varchar(255);not null" json:"password"`
 	Role         string    `gorm:"type:varchar(5);default:user" json:"role"`
 	Token        string    `gorm:"-" json:"token,omitempty"`
-	ImgProfile   string    `gorm:"type:varchar(100)" json:"img_profile"`
+	ImgProfile   string    `gorm:"type:varchar(100);not null;default:noprofile.jpg" json:"img_profile"`
 	CreatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
